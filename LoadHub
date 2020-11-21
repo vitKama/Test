@@ -1,0 +1,6 @@
+local place = game.PlaceId
+if place == then
+
+
+
+end
