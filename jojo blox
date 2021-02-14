@@ -1,0 +1,291 @@
+if getgenv().Key == "Lovlcls" then
+--local TABLES
+
+local npcs = {
+    "Thug [Level 5]",
+    "HamonUser [Level 15]",
+    "Gryphon [Level 30]",
+    "Vampire [Level 40]",
+    "Joseph",
+    "Snow Thug [Level 50]",
+    "Snowman [Level 65+]",
+    "Wamuu",
+    "Desert Bandit [Level 95]",
+    "Desert Monster [Level 120]",
+    "Dio Guard [Level 165]",
+    "Dio Royal Guard [Level  180]",
+    "Dio",
+    "School Bully  [Level 270]",
+    "City Criminal  [Level 280]",
+    "Criminal Master [Level 300]", 
+    "Kira",
+    "Magma Guard [Level 740]",
+    "Magma Monster [Level 780]",
+    "Ice Beast[Level 810]",
+    "Elite Beast[Level 860]",
+    "Beast Master[Level 900+]"
+}
+local tpIsl = {
+    ['Forest'] = CFrame.new(426.337891, 19.1342392, 101.478836); -- forest
+ 	['Joseph'] = CFrame.new(2722.47852, -72.5824203, 999.823547); -- joseph
+    ['Snowland'] = CFrame.new(-43.8426666, -69.7065659, 2394.54004); -- snowland
+    ['Desert'] = CFrame.new(5.3913064, 40.9800301, -988.934204); -- desert
+    ['Dio Custle'] =  CFrame.new(-166.843491, 30.2757511, -1830.44153); -- dio custle
+    ['Dio House'] = CFrame.new(-241.163315, 37.9173012, -5076.88477);-- dio house
+    ['Morioh']= CFrame.new( 127626.414, 401.528015, -171.807999); -- morioh
+    ['Kira House'] = CFrame.new(127953.07, 399.225006, 399.401978); -- Kira House
+    ['Magmaland']= CFrame.new( 38.6669998, -18.8470001, 5551.74316); --magma
+    ['Kars Island']= CFrame.new(47037.0273, -75.3744812, 8696.85938); -- kars island
+    ['Ultimate Dio House'] = CFrame.new(2095.87378, -69.2641602, -1080.97058); -- Ultimate dio spawn
+    ['Spawn'] = CFrame.new(9.84880352, 3.52570081, 148.508072); -- spawn
+}
+
+--locals
+local npc = ""
+local player = game.Players.LocalPlayer.Character.HumanoidRootPart
+local RendStep = game:GetService('RunService').RenderStepped
+_G.farm = false
+_G.chestfarm = false
+_G.farmArrow = false
+_G.farmStone = false
+_G.farmReb = false
+local noclip = false
+function TpIslandsToLoad()
+    for i,v in pairs(tpIsl)do
+        player.CFrame = tpIsl[i]
+        wait(1)
+    end
+end
+TpIslandsToLoad()
+--LIBRARY
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+
+-- windows
+
+local FarmWindow = library:CreateWindow("FarmWind") -- Creates the window
+local Teleports = library:CreateWindow("Teleports")
+local m = library:CreateWindow("Misc")
+
+local Farm = FarmWindow:CreateFolder("Farm")
+local FarmItems = FarmWindow:CreateFolder("FarmItems")
+
+local tpIs = Teleports:CreateFolder("Tp to Islands")
+local tpSom = Teleports:CreateFolder("Tp to Something")
+local tpMaps = Teleports:CreateFolder("TpToMap")
+
+local g = m:CreateFolder("Functions")
+local s = m:CreateFolder("Credits")
+
+
+Farm:Dropdown("NPCS",npcs,true,function(mob)
+npc = mob
+end)
+
+Farm:Toggle("Farm",function(bool)
+_G.farm = bool
+end)
+FarmItems:Toggle('ChestFarm',function(bool) 
+	_G.chestfarm = bool
+end)
+FarmItems:Toggle("FarmArrow",function(bool)
+_G.farmArrow = bool
+end)
+--[[FarmItems:Toggle("FarmStoneMask",function(bool)
+    _G.farmStone = bool
+end)]]-- No need Because no one no need Stone mask
+FarmItems:Toggle("FarmRebirthArrow",function(bool)
+    _G.farmReb = bool
+end)
+
+tpIs:Dropdown('Isl',{'Spawn','Forest','Joseph','Snowland','Desert','Dio House','Morioh','Magmaland','Kars Island'},true,function(isla)
+    if isla == "Spawn" then
+    player.CFrame = CFrame.new(9.84880352, 3.52570081, 148.508072);
+    elseif isla == 'Forest'then
+    player.CFrame = CFrame.new(426.337891, 19.1342392, 101.478836);
+    elseif isla == 'Joseph'then
+    player.CFrame = CFrame.new(2722.47852, -72.5824203, 999.823547);
+    elseif isla == 'Desert' then
+    player.CFrame = CFrame.new(5.3913064, 40.9800301, -988.934204)
+    elseif isla == 'Dio House' then
+    player.CFrame = CFrame.new(-241.163315, 37.9173012, -5076.88477);
+    elseif isla == 'Snowland'then
+    player.CFrame = CFrame.new(-43.8426666, -69.7065659, 2394.54004);
+    elseif isla == 'Morioh' then
+    player.CFrame = CFrame.new( 127626.414, 401.528015, -171.807999);
+    elseif isla == 'Magmaland' then
+    player.CFrame = CFrame.new( 38.6669998, -18.8470001, 5551.74316)
+    elseif isla == 'Kars Island' then 
+    player.CFrame = CFrame.new(47037.0273, -75.3744812, 8696.85938);
+    end
+    end) 
+
+
+
+tpSom:Button('tp To Wammu',function()
+    if game:GetService("Workspace").FolderOfFolders.Wamuu.Wamuu:FindFirstChild('HumanoidRootPart') then
+        player.CFrame = game:GetService("Workspace").FolderOfFolders.Wamuu.Wamuu.HumanoidRootPart.CFrame
+    else
+        player.CFrame = CFrame.new(127626.414, 401.528015, -171.807999)
+        wait(3)
+        player.CFrame = game:GetService("Workspace").FolderOfFolders.Wamuu.Wamuu.HumanoidRootPart.CFrame
+    end
+end)
+tpSom:Button('Aja Trader',function()
+    player.CFrame =  game:GetService("Workspace").FolderOfFolders.SpawnFloder.HKM291:FindFirstChild('HumanoidRootPart').CFrame
+end)
+tpSom:Button('Dio book Take',function()
+   player.CFrame = CFrame.new(-22.5932751, 3.52570081, 67.4433899)
+end)
+tpSom:Button('Shop',function()
+    player.CFrame = CFrame.new(-60.5833664, 3.52570081, 148.112305)
+end)
+tpSom:Button('Inven',function()
+    player.CFrame = CFrame.new(-31.1589012, 3.52570081, 157.428253)
+end)
+tpSom:Button('Backpack',function()
+    player.CFrame = CFrame.new(-69.6046219, 3.52570081, 101.058899)
+end)
+tpSom:Button('Tp to WhiteSnake',function()
+    player.CFrame = CFrame.new(-734.877747, 3.26736689, 348.977539, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247)  
+end)
+tpSom:Button('Tp to C moon',function()
+    player.CFrame = CFrame.new(765.338684, 7.3340435, 209.166809, 1, 0, 0, 0, 1, 0, 0, 0, 1)  
+end)
+
+
+g:Button("Infinity Jump", function()
+	local Player = game:GetService'Players'.LocalPlayer;
+	local UIS = game:GetService'UserInputService';
+
+	_G.JumpHeight = 100;
+
+	function Action(Object, Function) if Object ~= nil then Function(Object); end end
+
+UIS.InputBegan:connect(function(UserInput)
+	if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+		Action(Player.Character.Humanoid, function(self)
+			if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+					Action(self.Parent.HumanoidRootPart, function(self)
+					self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+				end)
+				end
+			end)
+		end
+	end)
+end)
+
+g:Slider("WalkSpeed",{
+    min = 16; 
+    max = 50; 
+    precise = true;
+},function(value)
+	local WalkSpee = value
+	game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpee
+end)
+g:Slider("JumpPower",{
+
+	min = 50;
+	max = 100;
+	precise = true
+}, function(value)
+	Jumppower = value
+	game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower = Jumppower
+end)
+
+
+s:Label("Creator ",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(0,0,0); -- Self Explaining
+    BgColor = Color3.fromRGB(0,255,110); -- Self Explaining
+    
+}) 
+s:Label(" Yumagulovkr",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(0,0,0); -- Self Explaining
+    BgColor = Color3.fromRGB(0,255,110); -- Self Explaining
+    
+}) 
+s:Label("Ui By Aika",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(0,0,0); -- Self Explaining
+    BgColor = Color3.fromRGB(0,255,110); -- Self Explaining
+    
+}) 
+s:DestroyGui()
+
+
+
+
+
+---RunService
+
+
+
+RendStep:Connect(function()
+    if _G.farm and npc ~= nil then
+        for i,v in pairs(game:GetService("Workspace").NPCS:GetChildren()) do
+            if v.Name == npc  and _G.farm and v:FindFirstChild('Humanoid') and v:FindFirstChild('Humanoid').Health ~= 0 then
+                repeat
+                    wait()
+                    if not _G.farm then
+                        wait(2)
+                        break
+                    end
+                    player.CFrame = v:FindFirstChild('HumanoidRootPart').CFrame * CFrame.Angles(math.rad(270),0,0)+ Vector3.new(0,5,0) 
+                until 1 > v.Humanoid.Health 
+            end
+
+    	end
+	end
+end)
+--[[RendStep:Connect(function()
+    if _G.farmStone then
+        for i,v in pairs(game:GetService("Workspace").StoneMasks:GetChildren()) do
+            if  v.Name == 'Stone Mask' then
+                player.CFrame = v:FindFirstChild("Handle").CFrame
+            end   
+        end
+    end    
+end)]]--NO need because no one it no need
+
+RendStep:Connect(function()
+    if _G.farmArrow then
+        for i,v in pairs(game:GetService("Workspace").Arrows:GetChildren())do
+            if v.Name == 'Arrow' then
+                player.CFrame = v:FindFirstChild("Handle").CFrame
+            end   
+        end
+    end
+end)
+
+RendStep:Connect(function()
+    if _G.farmReb then
+        for i,v in pairs(game:GetService("Workspace").Arrows:GetChildren())do
+            if v.Name == 'Rebirth Arrow' then
+                player.CFrame = v:FindFirstChild("Handle").CFrame
+            end
+        end
+    end
+end)
+RendStep:Connect(function ()
+    if _G.farm then
+        if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then --есть ли хуманоид у персонажа
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11) --убирает колизию у хуманоида
+        end
+    end
+end)
+while wait() do
+	if _G.chestfarm  then
+		for i,v in pairs(game:GetService("Workspace").Chest1.ChestPos:GetChildren())do
+            if _G.chestfarm then
+                player.CFrame = v.CFrame
+                wait(.5)
+            else 
+                break
+            end
+        end
+	end
+end
+
+
+end
