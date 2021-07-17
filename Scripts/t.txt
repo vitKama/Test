@@ -1,0 +1,48 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+local w = library:CreateWindow("Eggs")
+local b = w:CreateFolder("B") -- Creates the folder(U will put here your buttons,etc)
+
+eggs = {}
+local oppen = ""
+for i,v in pairs(game:GetService("Workspace").Eggs:GetChildren())do
+    table.insert(eggs,v.Name)
+end
+
+b:Dropdown("Dropdown",eggs,true,function(mob) --true/false, replaces the current title "Dropdown" with the option that t
+    oppen = mob
+end)
+
+b:Toggle("Toggle",function(bool)
+    _G.egg = bool
+end)
+b:Toggle("auto king",function(bool)
+    _G.auto = bool
+    
+end)
+b:Toggle("AutoUpgrade",function(bool)
+    _G.aut = bool
+end)
+game:GetService("RunService").RenderStepped:connect(function()
+    if _G.egg then
+               
+local A_2 = "Buy3"
+local Event = game:GetService("ReplicatedStorage").Modules.Events.EggBuy
+Event:InvokeServer(oppen, A_2)
+
+    end
+end)
+game:GetService("RunService").RenderStepped:connect(function()
+    if _G.auto then
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").KingOfTheHill.Hill.Zone.Part.CFrame
+    end
+end)
+game:GetService("RunService").RenderStepped:connect(function()
+    if _G.aut then
+        for i,v in pairs(game.Players.LocalPlayer.Pets.OwnedPets:GetChildren())do
+            local A_1 = "CombinePet"
+            local Event = game:GetService("ReplicatedStorage").Modules.Events.PetHandler
+            Event:InvokeServer(A_1,v.PetName.Value)
+        end
+    end
+end)
